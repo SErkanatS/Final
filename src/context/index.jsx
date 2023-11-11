@@ -3,7 +3,6 @@ import { ethers } from 'ethers';
 import Web3Modal from 'web3modal';
 import { useNavigate } from 'react-router-dom';
 
-import { GetParams } from '../utils/onboard.js';
 import { ABI, ADDRESS } from '../contract';
 import { createEventListeners } from './createEventListeners';
 
@@ -35,20 +34,6 @@ export const GlobalContextProvider = ({ children }) => {
     } else {
       localStorage.setItem('battleground', battleGround);
     }
-  }, []);
-
-  //* Reset web3 onboarding modal params
-  useEffect(() => {
-    const resetParams = async () => {
-      const currentStep = await GetParams();
-
-      setStep(currentStep.step);
-    };
-
-    resetParams();
-
-    window?.ethereum?.on('chainChanged', () => resetParams());
-    window?.ethereum?.on('accountsChanged', () => resetParams());
   }, []);
 
   //* Set the wallet address to the state
